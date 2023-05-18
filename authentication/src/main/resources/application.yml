@@ -1,8 +1,8 @@
 server:
-  port: 8082
+  port: 8081
 spring:
   application:
-    name: userservice
+    name: authentication
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
