@@ -1,4 +1,4 @@
-package com.server.common.entity;
+package com.server.userservice.common.entity;
 
 public enum Status {
     ACTIVE, // 활성화

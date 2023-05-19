@@ -1,7 +1,7 @@
-package com.server.common.entity;
+package com.server.userservice.common.entity;
 
-import com.server.common.exception.ApplicationException;
-import com.server.common.exception.StatusErrorCode;
+import com.server.userservice.common.exception.ApplicationException;
+import com.server.userservice.common.exception.StatusErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

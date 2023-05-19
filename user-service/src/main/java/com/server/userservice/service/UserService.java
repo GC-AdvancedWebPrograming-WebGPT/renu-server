@@ -1,6 +1,6 @@
 package com.server.userservice.service;
 
-import com.server.common.entity.BaseEntity;
+import com.server.userservice.common.entity.BaseEntity;
 import com.server.userservice.dto.request.SignUpRequest;
 import com.server.userservice.entity.User;
 import com.server.userservice.repository.UserRepository;

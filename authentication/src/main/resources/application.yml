@@ -24,3 +24,7 @@ eureka:
       fetchRegistry: true
       serviceUrl:
         defaultZone: http://127.0.0.1:8761/eureka/
+
+jwt:
+  secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InJlbnUiLCJpYXQiOjE1MTYyMzkwMjJ9acPpyWDMEqZqvbnsQOXHh722BX5MpBQ3nxuccXbY
+  access-expiration-time: 3600000

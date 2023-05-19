@@ -17,4 +17,6 @@ public interface UserFeignClient {
 
     @PostMapping(value="/api/users", consumes = "application/json")
     Long createUser(SignUpRequest signUpRequest);
+
+
 }
