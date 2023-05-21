@@ -17,11 +17,6 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: authentication
-          uri: http://localhost:8081/
-          predicates:
-            -  Path=/api/auth/**
-
         - id: userservice
           uri: http://localhost:8082/
           predicates:
@@ -33,4 +28,4 @@ spring:
             - Path=/api/nutrients/**
 
 jwt:
-  secret: renu
+  secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InJlbnUiLCJpYXQiOjE1MTYyMzkwMjJ9acPpyWDMEqZqvbnsQOXHh722BX5MpBQ3nxuccXbY

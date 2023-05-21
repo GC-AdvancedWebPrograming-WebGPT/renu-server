@@ -6,12 +6,15 @@ import com.server.authentication.auth.dto.request.SignUpRequest;
 import com.server.authentication.auth.dto.response.LoginResponse;
 import com.server.authentication.auth.dto.response.SignUpResponse;
 import com.server.authentication.auth.entity.User;
+import com.server.authentication.common.exception.ApplicationException;
 import com.server.authentication.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.server.authentication.common.exception.auth.AuthErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class AuthService {
     public SignUpResponse signUp(SignUpRequest signUpRequest){
         userFeignClient.getUser(signUpRequest.getUsername())
                 .ifPresent(user ->{
-                    throw new RuntimeException("이미 존재하는 유저입니다.");
+                    throw new ApplicationException(USER_EXIST);
                 });
         signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         return new SignUpResponse(userFeignClient.createUser(signUpRequest));
@@ -35,10 +38,10 @@ public class AuthService {
     @Transactional
     public LoginResponse login(LoginRequest loginRequest){
         User user = userFeignClient.getUser(loginRequest.getUsername())
-                .orElseThrow(()->new RuntimeException("존재하지 않는 유저입니다."));
+                .orElseThrow(()->new ApplicationException(USER_NOT_FOUND));
 
         if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
-            throw new RuntimeException("유효하지 않은 패스워드입니다.");
+            throw new ApplicationException(INVALID_PASSWORD);
         }
 
         return LoginResponse.builder()
