@@ -44,9 +44,6 @@ public class AuthService {
             throw new ApplicationException(INVALID_PASSWORD);
         }
 
-        return LoginResponse.builder()
-                .userId(user.getId())
-                .accessToken(jwtProvider.createAccessToken(user.getId().toString()))
-                .build();
+        return LoginResponse.of(user.getId(), jwtProvider.createAccessToken(user.getId().toString()));
     }
 }

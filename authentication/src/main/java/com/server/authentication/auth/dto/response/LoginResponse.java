@@ -12,4 +12,11 @@ public class LoginResponse {
     private Long userId;
 
     private String accessToken;
+
+    public static LoginResponse of(Long userId, String accessToken){
+        return LoginResponse.builder()
+                .userId(userId)
+                .accessToken(accessToken)
+                .build();
+    }
 }

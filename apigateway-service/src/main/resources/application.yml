@@ -21,11 +21,15 @@ spring:
           uri: http://localhost:8082/
           predicates:
             - Path=/api/users/**
+          filters:
+            - AuthorizationHeaderFilter
 
         - id: nutrientservice
           uri: http://localhost:8083/
           predicates:
             - Path=/api/nutrients/**
+          filters:
+            - AuthorizationHeaderFilter
 
 jwt:
   secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InJlbnUiLCJpYXQiOjE1MTYyMzkwMjJ9acPpyWDMEqZqvbnsQOXHh722BX5MpBQ3nxuccXbY
