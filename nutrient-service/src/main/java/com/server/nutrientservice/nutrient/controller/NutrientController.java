@@ -37,8 +37,8 @@ public class NutrientController {
         nutrientService.deleteMyNutrient(userId, id);
     }
 
-    @GetMapping("")
-    public UserNutrientResponses getUserNutrients(@RequestHeader("user_id") String userId){
+    @GetMapping("/{userId}")
+    public UserNutrientResponses getUserNutrients(@PathVariable Long userId){
         return nutrientService.getUserNutrients(userId);
     }
 }

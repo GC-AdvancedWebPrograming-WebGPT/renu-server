@@ -1,6 +1,6 @@
-package com.server.userservice.dto.request;
+package com.server.userservice.user.dto.request;
 
-import com.server.userservice.entity.User;
+import com.server.userservice.user.entity.User;
 import lombok.*;
 
 @Getter

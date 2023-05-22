@@ -1,4 +1,4 @@
-package com.server.userservice.entity;
+package com.server.userservice.user.entity;
 
 import com.server.userservice.common.entity.BaseEntity;
 import jakarta.persistence.*;

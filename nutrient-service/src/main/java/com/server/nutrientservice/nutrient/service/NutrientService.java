@@ -57,8 +57,8 @@ public class NutrientService {
     }
 
     @Transactional(readOnly = true)
-    public UserNutrientResponses getUserNutrients(String userId){
-        List<UserNutrient> nutrients = userNutrientRepository.findAllByUserId(Long.parseLong(userId));
+    public UserNutrientResponses getUserNutrients(Long userId){
+        List<UserNutrient> nutrients = userNutrientRepository.findAllByUserId(userId);
         return UserNutrientResponses.from(nutrients.stream()
                 .map(n -> UserNutrientResponse.from(n.getNutrient()))
                 .collect(Collectors.toList()));

@@ -1,7 +1,7 @@
-package com.server.userservice.repository;
+package com.server.userservice.user.repository;
 
 import com.server.userservice.common.entity.BaseEntity;
-import com.server.userservice.entity.User;
+import com.server.userservice.user.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
