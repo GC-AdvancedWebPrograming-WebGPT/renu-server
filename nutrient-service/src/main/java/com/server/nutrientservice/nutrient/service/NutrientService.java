@@ -23,4 +23,12 @@ public class NutrientService {
                 .map(NutrientResponse::from)
                 .collect(Collectors.toList()));
     }
+
+    @Transactional(readOnly = true)
+    public NutrientResponses getNutrientByConditions(String category){
+        return NutrientResponses.from(nutrientRepository.findAllByCategory(Category.toEnum(category))
+                .stream()
+                .map(NutrientResponse::from)
+                .collect(Collectors.toList()));
+    }
 }

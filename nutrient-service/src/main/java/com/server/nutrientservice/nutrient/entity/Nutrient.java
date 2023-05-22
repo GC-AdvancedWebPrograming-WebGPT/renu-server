@@ -26,13 +26,13 @@ public class Nutrient extends BaseEntity {
 
     private String content;
 
-    private String usage;
+    private String manual;
 
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(mappedBy = "nutrient", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "nutrient")
     private List<Comment> comments = new ArrayList<>();
 }

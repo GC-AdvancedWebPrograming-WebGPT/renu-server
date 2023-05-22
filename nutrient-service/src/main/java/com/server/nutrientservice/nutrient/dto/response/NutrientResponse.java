@@ -34,7 +34,7 @@ public class NutrientResponse {
                 .nutrientId(nutrient.getId())
                 .title(nutrient.getTitle())
                 .content(nutrient.getContent())
-                .usage(nutrient.getUsage())
+                .usage(nutrient.getManual())
                 .imageUrl(nutrient.getImageUrl())
                 .comments(nutrient.getComments().stream().map(CommentResponse::from).collect(Collectors.toList()))
                 .build();

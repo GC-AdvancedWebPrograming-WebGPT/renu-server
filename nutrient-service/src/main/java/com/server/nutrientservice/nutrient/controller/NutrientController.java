@@ -19,4 +19,9 @@ public class NutrientController {
     public NutrientResponses getNutrientsByCategories(@RequestParam String category){
         return nutrientService.getNutrientsByCategories(category);
     }
+
+    @GetMapping("/conditions")
+    public NutrientResponses getNutrientsByConditions(@RequestParam String category){
+        return nutrientService.getNutrientByConditions(category);
+    }
 }

@@ -1,7 +1,7 @@
 package com.server.nutrientservice.common.entity;
 
-import com.server.userservice.common.exception.ApplicationException;
-import com.server.userservice.common.exception.StatusErrorCode;
+import com.server.nutrientservice.common.exception.ApplicationException;
+import com.server.nutrientservice.common.exception.StatusErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
