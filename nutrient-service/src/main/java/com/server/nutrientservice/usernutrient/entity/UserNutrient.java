@@ -3,10 +3,7 @@ package com.server.nutrientservice.usernutrient.entity;
 import com.server.nutrientservice.common.entity.BaseEntity;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
@@ -25,5 +22,16 @@ public class UserNutrient extends BaseEntity {
 
     private Long userId;
 
+    @Builder
+    public UserNutrient(Nutrient nutrient, Long userId) {
+        this.nutrient = nutrient;
+        this.userId = userId;
+    }
 
+    public static UserNutrient of(Nutrient nutrient, Long userId){
+        return UserNutrient.builder()
+                .nutrient(nutrient)
+                .userId(userId)
+                .build();
+    }
 }

@@ -3,10 +3,7 @@ package com.server.nutrientservice.nutrient.controller;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
 import com.server.nutrientservice.nutrient.service.NutrientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/nutrients")
@@ -23,5 +20,12 @@ public class NutrientController {
     @GetMapping("/conditions")
     public NutrientResponses getNutrientsByConditions(@RequestParam String category){
         return nutrientService.getNutrientByConditions(category);
+    }
+
+    @PostMapping("{id}")
+    public void createMyNutrient(@RequestHeader("user_id") String userId,
+                                 @PathVariable Long id)
+    {
+        nutrientService.createMyNutrient(userId, id);
     }
 }
