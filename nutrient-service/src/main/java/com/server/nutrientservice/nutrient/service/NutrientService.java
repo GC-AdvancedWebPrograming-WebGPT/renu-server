@@ -3,6 +3,8 @@ package com.server.nutrientservice.nutrient.service;
 import com.server.nutrientservice.common.exception.ApplicationException;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponse;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
+import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponse;
+import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponses;
 import com.server.nutrientservice.nutrient.entity.Category;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
 import com.server.nutrientservice.nutrient.repository.NutrientRepository;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.server.nutrientservice.common.exception.nutrient.NutrientErrorCode.NOT_FOUND_NUTRIENT;
@@ -51,6 +54,13 @@ public class NutrientService {
         Nutrient nutrient = nutrientRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
         userNutrientRepository.deleteByUserIdAndNutrient(Long.parseLong(userId),nutrient);
+    }
 
+    @Transactional(readOnly = true)
+    public UserNutrientResponses getUserNutrients(String userId){
+        List<UserNutrient> nutrients = userNutrientRepository.findAllByUserId(Long.parseLong(userId));
+        return UserNutrientResponses.from(nutrients.stream()
+                .map(n -> UserNutrientResponse.from(n.getNutrient()))
+                .collect(Collectors.toList()));
     }
 }

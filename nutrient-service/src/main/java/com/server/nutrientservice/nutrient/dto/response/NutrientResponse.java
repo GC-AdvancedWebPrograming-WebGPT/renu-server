@@ -23,7 +23,7 @@ public class NutrientResponse {
 
     private String content;
 
-    private String usage;
+    private String manual;
 
     private String imageUrl;
 
@@ -34,7 +34,7 @@ public class NutrientResponse {
                 .nutrientId(nutrient.getId())
                 .title(nutrient.getTitle())
                 .content(nutrient.getContent())
-                .usage(nutrient.getManual())
+                .manual(nutrient.getManual())
                 .imageUrl(nutrient.getImageUrl())
                 .comments(nutrient.getComments().stream().map(CommentResponse::from).collect(Collectors.toList()))
                 .build();
