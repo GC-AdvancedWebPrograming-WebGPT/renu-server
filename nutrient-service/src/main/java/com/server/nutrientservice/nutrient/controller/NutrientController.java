@@ -28,4 +28,11 @@ public class NutrientController {
     {
         nutrientService.createMyNutrient(userId, id);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteMyNutrient(@RequestHeader("user_id") String userId,
+                                 @PathVariable Long id)
+    {
+        nutrientService.deleteMyNutrient(userId, id);
+    }
 }

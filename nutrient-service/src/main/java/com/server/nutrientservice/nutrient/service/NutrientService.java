@@ -45,4 +45,12 @@ public class NutrientService {
                 .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
         userNutrientRepository.save(UserNutrient.of(nutrient,Long.parseLong(userId)));
     }
+
+    @Transactional
+    public void deleteMyNutrient(String userId, Long id){
+        Nutrient nutrient = nutrientRepository.findById(id)
+                .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
+        userNutrientRepository.deleteByUserIdAndNutrient(Long.parseLong(userId),nutrient);
+
+    }
 }
