@@ -1,6 +1,7 @@
 package com.server.nutrientservice.nutrient.controller;
 
 import com.server.nutrientservice.nutrient.dto.request.CommentRequest;
+import com.server.nutrientservice.nutrient.dto.request.UpdateCommentRequest;
 import com.server.nutrientservice.nutrient.dto.response.CommentResponse;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
 import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponses;
@@ -49,6 +50,13 @@ public class NutrientController {
                                        @PathVariable Long id, @RequestBody CommentRequest commentRequest)
     {
         return nutrientService.postComment(userId, id, commentRequest);
+    }
+
+    @PatchMapping("/comment/{commentId}")
+    public void patchComment(@RequestHeader("user_id") String userId,
+                             @PathVariable Long commentId, @RequestBody UpdateCommentRequest updateCommentRequest)
+    {
+        nutrientService.patchComment(userId,commentId,updateCommentRequest);
     }
 
 }

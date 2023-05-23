@@ -4,6 +4,7 @@ import com.server.nutrientservice.common.entity.BaseEntity;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Entity
@@ -37,5 +38,11 @@ public class Comment extends BaseEntity {
                 .userId(userId)
                 .nutrient(nutrient)
                 .build();
+    }
+
+    public void changeComment(String content){
+        if(!StringUtils.hasText(content)){
+            this.content = content;
+        }
     }
 }

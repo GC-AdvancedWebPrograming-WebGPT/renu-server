@@ -4,6 +4,7 @@ import com.server.nutrientservice.comment.entity.Comment;
 import com.server.nutrientservice.comment.repository.CommentRepository;
 import com.server.nutrientservice.common.exception.ApplicationException;
 import com.server.nutrientservice.nutrient.dto.request.CommentRequest;
+import com.server.nutrientservice.nutrient.dto.request.UpdateCommentRequest;
 import com.server.nutrientservice.nutrient.dto.response.*;
 import com.server.nutrientservice.nutrient.entity.Category;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
@@ -15,9 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.server.nutrientservice.common.exception.nutrient.NutrientErrorCode.NOT_FOUND_NUTRIENT;
+import static com.server.nutrientservice.common.exception.nutrient.NutrientErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +75,21 @@ public class NutrientService {
                 (commentRequest.getContent(),Long.parseLong(userId),nutrient))
                 .getId());
 
+    }
+
+    @Transactional
+    public void patchComment(String userId, Long commentId, UpdateCommentRequest updateCommentRequest){
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new ApplicationException(NOT_FOUND_COMMENT));
+        validateUserId(Long.parseLong(userId),commentId);
+
+        comment.changeComment(updateCommentRequest.getContent());
+
+    }
+
+    private void validateUserId(Long userId, Long commentId){
+        if(!Objects.equals(userId,commentId)){
+            throw  new ApplicationException(INVALID_USER);
+        }
     }
 }
