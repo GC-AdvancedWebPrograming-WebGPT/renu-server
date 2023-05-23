@@ -59,4 +59,11 @@ public class NutrientController {
         nutrientService.patchComment(userId,commentId,updateCommentRequest);
     }
 
+    @DeleteMapping("/comment/{commentId}")
+    public void deleteComment(@RequestHeader("user_id") String userId,
+                              @PathVariable Long commentId)
+    {
+        nutrientService.deleteComment(userId,commentId);
+    }
+
 }

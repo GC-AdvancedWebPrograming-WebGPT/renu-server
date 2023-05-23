@@ -92,4 +92,12 @@ public class NutrientService {
             throw  new ApplicationException(INVALID_USER);
         }
     }
+
+    @Transactional
+    public void deleteComment(String userId, Long commentId){
+        commentRepository.findById(commentId)
+                        .orElseThrow(() -> new ApplicationException(NOT_FOUND_COMMENT));
+        validateUserId(Long.parseLong(userId),commentId);
+        commentRepository.deleteById(commentId);
+    }
 }
