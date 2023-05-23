@@ -1,5 +1,7 @@
 package com.server.nutrientservice.nutrient.controller;
 
+import com.server.nutrientservice.nutrient.dto.request.CommentRequest;
+import com.server.nutrientservice.nutrient.dto.response.CommentResponse;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
 import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponses;
 import com.server.nutrientservice.nutrient.service.NutrientService;
@@ -24,10 +26,10 @@ public class NutrientController {
     }
 
     @PostMapping("{id}")
-    public void createMyNutrient(@RequestHeader("user_id") String userId,
+    public void postMyNutrient(@RequestHeader("user_id") String userId,
                                  @PathVariable Long id)
     {
-        nutrientService.createMyNutrient(userId, id);
+        nutrientService.postMyNutrient(userId, id);
     }
 
     @DeleteMapping("{id}")
@@ -41,4 +43,12 @@ public class NutrientController {
     public UserNutrientResponses getUserNutrients(@PathVariable Long userId){
         return nutrientService.getUserNutrients(userId);
     }
+
+    @PostMapping("/{id}/comment")
+    public CommentResponse postComment(@RequestHeader("user_id") String userId,
+                                       @PathVariable Long id, @RequestBody CommentRequest commentRequest)
+    {
+        return nutrientService.postComment(userId, id, commentRequest);
+    }
+
 }

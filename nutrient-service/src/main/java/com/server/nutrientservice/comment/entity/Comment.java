@@ -3,10 +3,7 @@ package com.server.nutrientservice.comment.entity;
 import com.server.nutrientservice.common.entity.BaseEntity;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
@@ -26,4 +23,19 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="nutrient_id")
     private Nutrient nutrient;
+
+    @Builder
+    public Comment(String content, Long userId, Nutrient nutrient) {
+        this.content = content;
+        this.userId = userId;
+        this.nutrient = nutrient;
+    }
+
+    public static Comment of(String content, Long userId, Nutrient nutrient){
+        return Comment.builder()
+                .content(content)
+                .userId(userId)
+                .nutrient(nutrient)
+                .build();
+    }
 }

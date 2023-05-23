@@ -1,10 +1,10 @@
 package com.server.nutrientservice.nutrient.service;
 
+import com.server.nutrientservice.comment.entity.Comment;
+import com.server.nutrientservice.comment.repository.CommentRepository;
 import com.server.nutrientservice.common.exception.ApplicationException;
-import com.server.nutrientservice.nutrient.dto.response.NutrientResponse;
-import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
-import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponse;
-import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponses;
+import com.server.nutrientservice.nutrient.dto.request.CommentRequest;
+import com.server.nutrientservice.nutrient.dto.response.*;
 import com.server.nutrientservice.nutrient.entity.Category;
 import com.server.nutrientservice.nutrient.entity.Nutrient;
 import com.server.nutrientservice.nutrient.repository.NutrientRepository;
@@ -25,6 +25,7 @@ public class NutrientService {
 
     private final NutrientRepository nutrientRepository;
     private final UserNutrientRepository userNutrientRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional(readOnly = true)
     public NutrientResponses getNutrientsByCategories(String category){
@@ -43,7 +44,7 @@ public class NutrientService {
     }
 
     @Transactional
-    public void createMyNutrient(String userId, Long id){
+    public void postMyNutrient(String userId, Long id){
         Nutrient nutrient = nutrientRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
         userNutrientRepository.save(UserNutrient.of(nutrient,Long.parseLong(userId)));
@@ -62,5 +63,15 @@ public class NutrientService {
         return UserNutrientResponses.from(nutrients.stream()
                 .map(n -> UserNutrientResponse.from(n.getNutrient()))
                 .collect(Collectors.toList()));
+    }
+
+    @Transactional
+    public CommentResponse postComment(String userId, Long id, CommentRequest commentRequest){
+        Nutrient nutrient = nutrientRepository.findById(id)
+                .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
+        return CommentResponse.from(commentRepository.save(Comment.of
+                (commentRequest.getContent(),Long.parseLong(userId),nutrient))
+                .getId());
+
     }
 }
