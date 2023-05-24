@@ -3,6 +3,7 @@ package com.server.nutrientservice.nutrient.controller;
 import com.server.nutrientservice.nutrient.dto.request.CommentRequest;
 import com.server.nutrientservice.nutrient.dto.request.UpdateCommentRequest;
 import com.server.nutrientservice.nutrient.dto.response.CommentResponse;
+import com.server.nutrientservice.nutrient.dto.response.NutrientResponse;
 import com.server.nutrientservice.nutrient.dto.response.NutrientResponses;
 import com.server.nutrientservice.nutrient.dto.response.UserNutrientResponses;
 import com.server.nutrientservice.nutrient.service.NutrientService;
@@ -24,6 +25,11 @@ public class NutrientController {
     @GetMapping("/conditions")
     public NutrientResponses getNutrientsByConditions(@RequestParam String category){
         return nutrientService.getNutrientByConditions(category);
+    }
+
+    @GetMapping("/{id}")
+    public NutrientResponse getNutrient(@PathVariable Long id){
+        return nutrientService.getNutrient(id);
     }
 
     @PostMapping("{id}")

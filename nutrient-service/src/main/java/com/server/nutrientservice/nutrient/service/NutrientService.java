@@ -45,6 +45,13 @@ public class NutrientService {
                 .collect(Collectors.toList()));
     }
 
+    @Transactional(readOnly = true)
+    public NutrientResponse getNutrient(Long id){
+        Nutrient nutrient = nutrientRepository.findById(id)
+                .orElseThrow(() -> new ApplicationException(NOT_FOUND_NUTRIENT));
+        return NutrientResponse.from(nutrient);
+    }
+
     @Transactional
     public void postMyNutrient(String userId, Long id){
         Nutrient nutrient = nutrientRepository.findById(id)
