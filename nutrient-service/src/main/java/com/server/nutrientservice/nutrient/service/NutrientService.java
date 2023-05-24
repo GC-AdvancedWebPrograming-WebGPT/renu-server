@@ -33,7 +33,7 @@ public class NutrientService {
     public NutrientResponses getNutrientsByCategories(String category){
         return NutrientResponses.from(nutrientRepository.findAllByCategory(Category.toEnum(category))
                 .stream()
-                .map(NutrientResponse::from)
+                .map(NutrientInfo::from)
                 .collect(Collectors.toList()));
     }
 
@@ -41,7 +41,7 @@ public class NutrientService {
     public NutrientResponses getNutrientByConditions(String category){
         return NutrientResponses.from(nutrientRepository.findAllByCategory(Category.toEnum(category))
                 .stream()
-                .map(NutrientResponse::from)
+                .map(NutrientInfo::from)
                 .collect(Collectors.toList()));
     }
 

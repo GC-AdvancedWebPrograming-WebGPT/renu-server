@@ -14,9 +14,9 @@ import java.util.List;
 @Builder
 public class NutrientResponses {
 
-    private List<NutrientResponse> nutrients = new ArrayList<>();
+    private List<NutrientInfo> nutrients = new ArrayList<>();
 
-    public static NutrientResponses from(List<NutrientResponse> nutrients){
+    public static NutrientResponses from(List<NutrientInfo> nutrients){
         return NutrientResponses.builder()
                 .nutrients(nutrients)
                 .build();
