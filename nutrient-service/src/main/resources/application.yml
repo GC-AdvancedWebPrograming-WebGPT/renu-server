@@ -1,23 +1,13 @@
 server:
   port: 8083
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888/
+  profiles:
+    active: dev
+
   application:
     name: nutrientservice
-
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
 
 eureka:
   instance:
@@ -28,3 +18,9 @@ eureka:
       fetchRegistry: true
       serviceUrl:
         defaultZone: http://127.0.0.1:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
