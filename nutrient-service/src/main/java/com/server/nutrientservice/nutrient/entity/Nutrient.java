@@ -28,6 +28,7 @@ public class Nutrient extends BaseEntity {
 
     private String manual;
 
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)

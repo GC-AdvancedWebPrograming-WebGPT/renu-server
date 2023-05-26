@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    Optional<User> findByUsernameAndStatus(String username, BaseEntity.Status status);
+    Optional<User> findByNicknameAndStatus(String nickname, BaseEntity.Status status);
 }

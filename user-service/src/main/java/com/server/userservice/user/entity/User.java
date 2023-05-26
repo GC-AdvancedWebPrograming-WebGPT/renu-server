@@ -15,13 +15,15 @@ public class User extends BaseEntity{
     @Column(name = "user_id")
     private Long id;
 
-    private String username;
+    private String nickname;
 
-    private String password;
+    @Column(columnDefinition = "TEXT")
+    private String profileImageUrl;
+
 
     @Builder
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public User(String nickname, String profileImageUrl) {
+        this.nickname = nickname;
+        this.profileImageUrl = profileImageUrl;
     }
 }

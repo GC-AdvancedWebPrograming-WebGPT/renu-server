@@ -1,12 +1,10 @@
 package com.server.authentication.auth.service;
 
 import com.server.authentication.auth.client.UserFeignClient;
-import com.server.authentication.auth.dto.request.LoginRequest;
-import com.server.authentication.auth.dto.request.SignUpRequest;
 import com.server.authentication.auth.dto.response.LoginResponse;
-import com.server.authentication.auth.dto.response.SignUpResponse;
 import com.server.authentication.auth.entity.User;
-import com.server.authentication.common.exception.ApplicationException;
+import com.server.authentication.infrastructure.KaKaoRequester;
+import com.server.authentication.oauth.KaKaoOauthUserInfo;
 import com.server.authentication.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,36 +12,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.server.authentication.common.exception.auth.AuthErrorCode.*;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserFeignClient userFeignClient;
+    private final KaKaoRequester kaKaoRequester;
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public SignUpResponse signUp(SignUpRequest signUpRequest){
-        userFeignClient.getUser(signUpRequest.getUsername())
-                .ifPresent(user ->{
-                    throw new ApplicationException(USER_EXIST);
-                });
-        signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-        return new SignUpResponse(userFeignClient.createUser(signUpRequest));
+    public LoginResponse login(String code){
+        KaKaoOauthUserInfo kaKaoOauthUserInfo = kaKaoRequester.getUserInfoByCode(code);
+        User user = userFeignClient.getUser(kaKaoOauthUserInfo.getNickname())
+                .orElseGet(()->createOauthUser(kaKaoOauthUserInfo));
+        return LoginResponse.of(user.getId(), jwtProvider.createAccessToken(user.getId().toString()));
     }
 
-    @Transactional
-    public LoginResponse login(LoginRequest loginRequest){
-        User user = userFeignClient.getUser(loginRequest.getUsername())
-                .orElseThrow(()->new ApplicationException(USER_NOT_FOUND));
-
-        if(!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
-            throw new ApplicationException(INVALID_PASSWORD);
-        }
-
-        return LoginResponse.of(user.getId(), jwtProvider.createAccessToken(user.getId().toString()));
+    private User createOauthUser(KaKaoOauthUserInfo client){
+        return userFeignClient.createUser(User.builder()
+                .nickname(client.getNickname())
+                .profileImageUrl(client.getProfileImageUrl())
+                .build());
     }
 }

@@ -1,7 +1,7 @@
 package com.server.userservice.user.controller;
 
-import com.server.userservice.user.dto.request.SignUpRequest;
-import com.server.userservice.user.dto.response.UserNutrientResponses;
+import com.server.userservice.user.dto.request.OauthUserRequest;
+import com.server.userservice.user.dto.response.OauthUserResponse;
 import com.server.userservice.user.dto.response.UserResponse;
 import com.server.userservice.user.entity.User;
 import com.server.userservice.user.service.UserService;
@@ -18,13 +18,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("")
-    public Optional<User> getUser(@RequestParam("username") String username){
-        return userService.getUser(username);
+    public Optional<User> getUser(@RequestParam String nickname){
+        return userService.getUser(nickname);
     }
 
     @PostMapping("")
-    public Long createUser(@RequestBody SignUpRequest signUpRequest){
-        return userService.createUser(signUpRequest);
+    public OauthUserResponse createUser(@RequestBody OauthUserRequest oauthUserRequest){
+        return userService.createUser(oauthUserRequest);
     }
 
     @GetMapping("/me")

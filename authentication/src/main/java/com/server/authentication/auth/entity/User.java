@@ -1,11 +1,14 @@
 package com.server.authentication.auth.entity;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     private Long id;
-    private String username;
-    private String password;
+    private String nickname;
+    private String profileImageUrl;
 }

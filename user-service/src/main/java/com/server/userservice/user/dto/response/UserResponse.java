@@ -11,13 +11,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserResponse {
 
-    private String username;
+    private String nickname;
+
+    private String profileImageUrl;
 
     private UserNutrientResponses userNutrients;
 
-    public static UserResponse of(String username, UserNutrientResponses userNutrientResponses){
+    public static UserResponse of(String nickname, String profileImageUrl, UserNutrientResponses userNutrientResponses){
         return UserResponse.builder()
-                .username(username)
+                .nickname(nickname)
+                .profileImageUrl(profileImageUrl)
                 .userNutrients(userNutrientResponses)
                 .build();
     }

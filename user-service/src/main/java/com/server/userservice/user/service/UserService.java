@@ -3,7 +3,8 @@ package com.server.userservice.user.service;
 import com.server.userservice.common.entity.BaseEntity;
 import com.server.userservice.common.exception.ApplicationException;
 import com.server.userservice.user.client.NutrientFeignClient;
-import com.server.userservice.user.dto.request.SignUpRequest;
+import com.server.userservice.user.dto.request.OauthUserRequest;
+import com.server.userservice.user.dto.response.OauthUserResponse;
 import com.server.userservice.user.dto.response.UserResponse;
 import com.server.userservice.user.entity.User;
 import com.server.userservice.user.repository.UserRepository;
@@ -23,13 +24,14 @@ public class UserService {
     private final NutrientFeignClient nutrientFeignClient;
 
     @Transactional
-    public Optional<User> getUser(String username){
-        return userRepository.findByUsernameAndStatus(username, BaseEntity.Status.ACTIVE);
+    public Optional<User> getUser(String nickname){
+        return userRepository.findByNicknameAndStatus(nickname, BaseEntity.Status.ACTIVE);
     }
 
     @Transactional
-    public Long createUser(SignUpRequest signUpRequest){
-        return userRepository.save(signUpRequest.toEntity()).getId();
+    public OauthUserResponse createUser(OauthUserRequest oauthUserRequest){
+        User user = userRepository.save(oauthUserRequest.toEntity());
+        return OauthUserResponse.from(user);
     }
 
     @Transactional(readOnly = true)
@@ -37,7 +39,7 @@ public class UserService {
         User user = userRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new ApplicationException(USER_NOT_FOUND));
 
-        return UserResponse.of(user.getUsername(),nutrientFeignClient.getUserNutrients(Long.parseLong(userId)));
+        return UserResponse.of(user.getNickname(),user.getProfileImageUrl(),nutrientFeignClient.getUserNutrients(Long.parseLong(userId)));
     }
 
 }
