@@ -1,0 +1,1 @@
+INSERT INTO nutrient (created_at, status, updated_at, category, content, image_url, manual, title) VALUES ('2023-05-26 20:01:16.000000', 'ACTIVE', '2023-05-26 20:01:18.000000', 'FATIGUE', '비타민 13종과 미네랄 10종으로 건강 기능에 도움을 줄 수 있습니다.', 'test', '1일 1회, 1회 1정 복용', '고려은단 멀티비타민 올인원')

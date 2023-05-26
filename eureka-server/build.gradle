@@ -8,6 +8,10 @@ group = 'com.server'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+jar {
+	enabled = false
+}
+
 repositories {
 	mavenCentral()
 	maven { url 'https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates' }
