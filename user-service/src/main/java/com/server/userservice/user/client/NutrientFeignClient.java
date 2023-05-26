@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient("nutrientservice")
 public interface NutrientFeignClient {
 
-    @GetMapping(value = "/api/nutrients/{userId}", consumes = "appliaction/json")
+    @GetMapping(value = "/api/nutrients/me/{userId}", consumes = "appliaction/json")
     UserNutrientResponses getUserNutrients(@PathVariable Long userId);
 }

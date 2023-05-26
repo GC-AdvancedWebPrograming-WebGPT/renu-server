@@ -11,6 +11,7 @@ spring:
 
 eureka:
   instance:
+#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
     lease-renewal-interval-in-seconds: 30
     client:
@@ -18,7 +19,19 @@ eureka:
       fetchRegistry: true
       serviceUrl:
         defaultZone: http://127.0.0.1:8761/eureka/
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/renu-db
+    username: renu
+    password: renuserver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 management:
   endpoints:
     web:
