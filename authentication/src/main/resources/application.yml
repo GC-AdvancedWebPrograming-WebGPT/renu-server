@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 0
 spring:
   config:
     import: optional:configserver:http://localhost:8888/
@@ -24,6 +24,7 @@ spring:
         format_sql: true
 eureka:
   instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     preferIpAddress: true
     lease-renewal-interval-in-seconds: 30
   client:

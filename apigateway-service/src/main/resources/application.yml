@@ -29,7 +29,7 @@ spring:
               - DELETE
               - PATCH
               - OPTIONS
-
+        add-to-simple-url-handler-mapping: true
       default-filters:
         - name: GlobalFilter
           args:
@@ -37,6 +37,12 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+        - id: authentication
+          uri: lb://AUTHENTICATION
+          predicates:
+            - Path=/authentication/**
+          filters:
+            - RewritePath=/authentication/(?<segment>.*), /$\{segment}
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
