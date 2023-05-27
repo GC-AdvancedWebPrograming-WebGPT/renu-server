@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
-@FeignClient("userservice")
+@FeignClient("user-service")
 public interface UserFeignClient {
 
     @GetMapping(value="/api/users", consumes = "application/json")

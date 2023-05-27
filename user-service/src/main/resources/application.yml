@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 0
 spring:
   config:
     import: optional:configserver:http://localhost:8888/
@@ -7,7 +7,7 @@ spring:
     active: dev
 
   application:
-    name: userservice
+    name: user-service
 
   datasource:
     url: jdbc:mysql://localhost:3306/renu-db
@@ -24,14 +24,14 @@ spring:
         format_sql: true
 eureka:
   instance:
-#    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    preferIpAddress: true
     lease-renewal-interval-in-seconds: 30
-    client:
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-        defaultZone: http://127.0.0.1:8761/eureka/
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
 
 management:
   endpoints:

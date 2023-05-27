@@ -37,19 +37,31 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: userservice
-          uri: http://localhost:8082/
+        - id: user-service
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/api/users/**
+            - Path=/user-service/**
           filters:
             - AuthorizationHeaderFilter
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
-        - id: nutrientservice
-          uri: http://localhost:8083/
+
+        - id: nutrient-service
+          uri: lb://NUTRIENT-SERVICE
           predicates:
-            - Path=/api/nutrients/**
+            - Path=/nutrient-service/**
           filters:
             - AuthorizationHeaderFilter
+            - RewritePath=/nutrient-service/(?<segment>.*), /$\{segment}
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "gateway"
+  endpoint:
+    gateway:
+      enabled: true
 
 jwt:
   secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InJlbnUiLCJpYXQiOjE1MTYyMzkwMjJ9acPpyWDMEqZqvbnsQOXHh722BX5MpBQ3nxuccXbY

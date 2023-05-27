@@ -62,6 +62,7 @@ services:
     depends_on:
       - eureka-server
       - config-service
+      - apigateway-service
 #      - db
     restart: always
     networks:
@@ -79,7 +80,8 @@ services:
     depends_on:
       - eureka-server
       - config-service
-#      - db
+      - apigateway-service
+    #      - db
     restart: always
     networks:
       - renu-network
@@ -107,8 +109,6 @@ services:
 networks:
   renu-network:
     driver: bridge
-    driver_opts:
-      com.docker.compose.network: renu-network
     ipam:
       config:
         - subnet: 172.18.0.0/16
